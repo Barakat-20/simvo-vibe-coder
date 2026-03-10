@@ -122,10 +122,17 @@
     </div>
   </div>
   <script>
-    function sayhi() {
-      event.preventDefault(); // prevents page refresh
-      alert("Hi");
-      console.log("baby")
+    async function sayhi() {
+      event.preventDefault();
+      const search = document.getElementById("search-input").value;
+      console.log("getting data...");
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/species?search=${search}`);
+        const data = await response.json();
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
     }
   </script>
 </body>
