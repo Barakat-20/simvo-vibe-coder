@@ -281,7 +281,7 @@
       `;
 
       try {
-        const response = await fetch(`http://127.0.0.1:8000/species?search=${encodeURIComponent(search)}`);
+        const response = await fetch(`/species?search=${encodeURIComponent(search)}`);
         const data = await response.json();
 
         button.disabled = false;
