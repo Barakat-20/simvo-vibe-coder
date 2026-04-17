@@ -1,9 +1,8 @@
-# server.py
 from fastapi import FastAPI, Query, Request
-from request import search_species
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from fastapi.middleware.cors import CORSMiddleware
+from request import search_species
 
 app = FastAPI()
 
@@ -14,7 +13,7 @@ origins = [
 ]
 
 app.add_middleware(
-     CORSMiddleware,
+    CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
@@ -28,8 +27,7 @@ async def hello():
     return {"message": "Hello!"}
 
 @app.get("/species")
-async def species(search: str = Query(..., description="Species name to search for")):
-    print("I got: " + search)
+async def species(search: str):
     extracted_data = await search_species(search)
     return {"data": extracted_data}
 
